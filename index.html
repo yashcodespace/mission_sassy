@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sassy Saumya 💖</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="data:," />
+    <style>
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f000c0 0%, #fda085 100%);
+        font-family: "Arial", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .card-wrapper {
+        width: 300px;
+        height: 500px;
+        perspective: 1500px;
+      }
+
+      .card {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 1s ease-in-out;
+        transform-origin: center;
+        border-radius: 15px;
+        background-color: #fff;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .front {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        background: linear-gradient(135deg, #ff66b2, #ff3385);
+        color: white;
+        font-size: 36px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 15px;
+        transform-origin: left;
+        backface-visibility: hidden;
+        transition: transform 1s ease-in-out;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        padding: 40px;
+      }
+
+      .message-inside {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        background-color: #ff66b2;
+        color: #333;
+        font-size: 14px;
+        padding: 40px;
+        text-align: center;
+        border-radius: 15px;
+        transform: rotateY(180deg);
+        opacity: 0;
+        backface-visibility: hidden;
+        box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: opacity 1s ease-in-out;
+        font-family: cursive;
+      }
+
+      .card-wrapper:hover .card {
+        transform: rotateY(-180deg);
+      }
+
+      .card-wrapper:hover .front {
+        transform: rotateY(-180deg);
+      }
+
+      .card-wrapper:hover .message-inside {
+        opacity: 1;
+      }
+
+      .confetti {
+        position: absolute;
+        top: -20px;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        animation: confetti-fall 2s linear infinite;
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          top: -20px;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+
+      @keyframes balloon-bob {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(-15px);
+        }
+      }
+
+      @media (max-width: 400px) {
+        .card-wrapper {
+          width: 280px;
+          height: 480px;
+        }
+        .front {
+          font-size: 28px;
+        }
+        .inside {
+          font-size: 13px;
+          padding: 25px;
+        }
+      }
+
+      .photo-gallery {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 2rem;
+      }
+
+      .photo-card {
+        perspective: 1000px;
+        width: 200px;
+        height: 200px;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .photo-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+      }
+
+      .photo-card:hover .photo-inner {
+        transform: rotateY(180deg);
+      }
+
+      .photo-front,
+      .photo-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        backface-visibility: hidden;
+        box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+      }
+
+      .photo-front {
+        background-size: cover;
+        background-position: center;
+        border: 3px solid #ffb6c1;
+      }
+
+      .photo-back {
+        background: #fff0f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotateY(180deg);
+        padding: 12px;
+        font-size: 1rem;
+        color: #d63384;
+        font-weight: 600;
+        border: 3px dashed #ffc0cb;
+        text-shadow: 0 0 2px white;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+    </style>
+  </head>
+  <body
+    style="
+      background-image: url('assets/img2.jpg');
+      background-size: contain;
+      background-position: center;
+    "
+  >
+    <!-- Add controls temporarily for debugging -->
+    <audio id="bg-music" loop>
+      <source
+        src="https://res.cloudinary.com/dar6gpo7x/video/upload/v1764586860/bg_song_jzo452.mp3"
+        type="audio/mp3"
+      />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Surprise Sections -->
+    <section id="surprise0" class="section active glass-container">
+      <h1>Welcome 🎁</h1>
+      <p class="subtitle">Khol hi do ab to...😜😝</p>
+      <div class="btn-container">
+        <button class="btn" onclick="showSection(1)">
+          Start the Surprise ✨
+        </button>
+      </div>
+    </section>
+
+    <!-- Surprise 1: Love Note -->
+    <section id="surprise1" class="section glass-container">
+      <h1>Hey Saummyyyy 💌</h1>
+      <p class="subtitle">A little message just for you...</p>
+      <p class="love-msg">
+        Saumya, you're not just a friend, you're a ray of sunshine in our
+        life.<br /><br />
+        Your kindness and laughter make everything brighter, and we're so
+        grateful to have you by our side.<br /><br />
+        your friendship means the world to us, and we're lucky to call you our's
+        friend. 💖
+      </p>
+      <div class="btn-container">
+        <button class="btn" onclick="showSection(2)">Next ➡️</button>
+      </div>
+    </section>
+
+    <!-- Surprise 2: Photo Gallery -->
+    <section id="surprise2" class="section glass-container">
+      <h3>🌟 Princess Gallery 📸</h3>
+      <!-- <p class="message">
+    To a woman of elegance, wisdom, and unmatched kindness — may your birthday be as radiant as your heart.<br>
+    Each photo below holds a piece of the magic you bring into our lives.
+  </p> -->
+
+      <div class="photo-gallery">
+        <!-- Photo Card 1 -->
+        <div class="photo-card">
+          <div class="photo-inner">
+            <div
+              class="photo-front"
+              style="background-image: url('assets/img1.jpg'); width: 90%"
+            ></div>
+            <div class="photo-back">
+              Your grace uplifts everyone around you 🌷
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Card 2 -->
+        <div class="photo-card">
+          <div class="photo-inner">
+            <div
+              class="photo-front"
+              style="background-image: url('assets/img7.jpg')"
+            ></div>
+            <div class="photo-back">
+              A mind full of wisdom, a heart full of gold 💛
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Card 3 -->
+        <div class="photo-card">
+          <div class="photo-inner">
+            <div
+              class="photo-front"
+              style="background-image: url('assets/img3.jpg')"
+            ></div>
+            <div class="photo-back">Kindness is your superpower 🌟</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <button class="btn" onclick="showSection(3)">Next ➡️</button>
+      </div>
+    </section>
+
+    <section id="surprise3" class="section glass-container birthday-section">
+      <h1 class="fade-in">🎉 Happy Birthday, Miss Saumya❤️! 🎉</h1>
+      <p class="subtitle fade-in delay-1">A special day to celebrate YOU!</p>
+      <div class="birthday-animation fade-in delay-2">
+        <img
+          src="assets/birthday-cake.jpeg"
+          alt="Birthday Cake"
+          class="cake-img responsive zoom-in"
+          width="20%"
+        />
+        <p class="birthday-msg love-msg fade-in delay-3">
+          Wishing you a year filled with laughter, joy, and all the love in the
+          world. 💖
+        </p>
+        <div class="btn-container fade-in delay-4">
+          <button class="btn responsive hover-glow" onclick="showSection(4)">
+            Next ➡️
+          </button>
+        </div>
+      </div>
+      <div class="confetti"></div>
+    </section>
+
+    <section id="surprise4" class="section glass-container">
+      <h1>Guess the Moment 🎲</h1>
+      <p class="subtitle">A quick question for fun...</p>
+      <p class="love-msg">What’s our favorite memory with you?</p>
+      <div class="btn-container">
+        <button
+          class="btn"
+          onclick="showMessage('Your smile, Saumya, is still our favorite part of every memory we’ve made. 💖')"
+        >
+          Your smile 💕
+        </button>
+        <button
+          class="btn"
+          onclick="showMessage('Remember that silly joke we couldn’t stop laughing at? 😂')"
+        >
+          A silly joke 🤭
+        </button>
+        <button
+          class="btn"
+          onclick="showMessage('Those peaceful, quiet moments with you, Saumya — they speak louder than words ever could. 🌌')"
+        >
+          The quiet moments 🌙
+        </button>
+      </div>
+      <p id="response-msg" class="love-msg" style="margin-top: 20px"></p>
+      <div class="btn-container">
+        <button class="btn" onclick="showSection(5)">Next ➡️</button>
+      </div>
+    </section>
+
+    <section id="surprise5" class="section glass-container final-surprise">
+      <canvas id="fireworks-canvas"></canvas>
+      <div class="birthday-message fade-in">
+        <h1 class="magical-text">🎉 Happy Birthday! 🎂</h1>
+        <p class="fade-in-delay" style="line-height: 1.8">
+          Happy Birthday to someone who makes our world brighter just by being
+          in it.<br />
+          May your day be as beautiful as the joy you bring to others!<br />
+          On your special day, We wish you love that warms your heart, dreams
+          that ignite<br />
+          your soul, and moments that take your breath away. You deserve it
+          all!<br />
+          To our irreplaceable friend: Thank you for the laughter, the memories,
+          and the unwavering support. <br />Today, We celebrate YOU—the
+          incredible human you are!<br />
+          - From Awaara Pornima 💦✌ 💖
+        </p>
+      </div>
+      <div class="button-container">
+        <button id="confetti-btn">🎉 Surprise!</button>
+      </div>
+    </section>
+
+    <!-- More surprises can continue below -->
+
+    <script>
+      let flipped = false;
+      let clickCount = 0; // Counter for button clicks
+
+      // Function to flip the card
+      function flipCard() {
+        const card = document.querySelector(".card");
+        flipped = !flipped;
+        card.style.transform = flipped ? "rotateY(180deg)" : "rotateY(0deg)";
+
+        if (flipped) {
+          triggerConfetti(); // Trigger confetti when the card is flipped
+        }
+      }
+
+      // Function to trigger confetti animation
+      function triggerConfetti() {
+        const duration = 2 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+          confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+          });
+          confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      }
+
+      // Function to show a section based on the index
+      function showSection(index) {
+        const sections = document.querySelectorAll(".section");
+        sections.forEach((section) => section.classList.remove("active"));
+        const target = document.getElementById(`surprise${index}`);
+        if (target) target.classList.add("active");
+      }
+
+      // Confetti Button Logic with Redirect
+      const confettiBtn = document.getElementById("confetti-btn");
+
+      confettiBtn.addEventListener("click", () => {
+        clickCount++;
+
+        // Trigger large confetti burst on button click
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+        });
+
+        // Change button text with count of clicks
+        confettiBtn.textContent = `Yah! (${clickCount})`;
+
+        // After 5 clicks, reset and go back to the Welcome section
+        if (clickCount >= 5) {
+          clickCount = 0;
+          showSection(0); // Go back to Welcome
+        }
+      });
+
+      function showMessage(msg) {
+        document.getElementById("response-msg").textContent = msg;
+      }
+
+      // ✅ FIXED: Background music playback with user interaction
+      document.body.addEventListener("click", function playMusicOnce() {
+        const music = document.getElementById("bg-music");
+        music
+          .play()
+          .then(() => {
+            console.log("✅ Music started");
+          })
+          .catch((error) => {
+            console.error("❌ Music play error:", error);
+          });
+
+        // Remove after first click
+        document.body.removeEventListener("click", playMusicOnce);
+      });
+    </script>
+  </body>
+</html>
